@@ -2,7 +2,7 @@
   "name": "nextjs-starter-kit-2025",
   "scripts": {
     "dev": "bun --env-file=.env.dev run next dev --turbopack",
-    "build": "bun --env-file=.env.prod run next build && shx rm -rf docker/standalone && shx cp -r .next/standalone docker/standalone && cp -r .next/static docker/standalone/static && shx cp -r public docker/standalone/public",
+    "build": "bun --env-file=.env.prod run next build && shx rm -rf docker/standalone && shx cp -r .next/standalone docker/standalone && shx cp -r .next/static docker/standalone/static && shx cp -r public docker/standalone/public",
     "start": "next start",
     "lint": "next lint",
     "addui": "bunx --bun shadcn@latest add",
@@ -12,9 +12,9 @@
     "db:dev:dropall": "bun --env-file=.env.dev run ./server/script-dropall.ts",
     "db:dev:reset": "bun run db:dev:dropall && bun run db:dev:push && bun run db:dev:seed",
     "docker:prod": "docker compose --env-file .env.prod -f ./docker/docker-compose.prod.yml up",
-    "db:prod:push": "bun --env-file=.env.prod drizzle-kit push",
-    "db:prod:seed": "bun --env-file=.env.prod run ./server/script-seed.ts",
-    "db:prod:dropall": "bun --env-file=.env.prod run ./server/script-dropall.ts",
+    "db:prod:push": "PG_HOST=localhost bun --env-file=.env.prod drizzle-kit push",
+    "db:prod:seed": "PG_HOST=localhost bun --env-file=.env.prod run ./server/script-seed.ts",
+    "db:prod:dropall": "PG_HOST=localhost bun --env-file=.env.prod run ./server/script-dropall.ts",
     "db:prod:reset": "bun run db:prod:dropall && bun run db:prod:push && bun run db:prod:seed"
   },
   "dependencies": {

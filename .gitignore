@@ -40,5 +40,6 @@ next-env.d.ts
 /docker/cache
 /docker/pgdata_dev
 /docker/pgdata_prod
+/docker/standalone
 
 # End of https://www.toptal.com/developers/gitignore/api/nextjs
