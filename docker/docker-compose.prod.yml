@@ -1,0 +1,64 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "80:80"
+      # - "443:443"
+    volumes:
+      - ./nginx.prod.conf:/etc/nginx/nginx.conf
+      - ./cache:/var/cache/nginx
+      # - ./certs:/etc/nginx/certs
+      - ./standalone/static:/nextjs/static
+      - ./standalone/public:/nextjs/public
+    depends_on:
+      - imgproxy
+      - nextjs
+
+  nextjs:
+    image: node:23-alpine
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./standalone:/nextjs
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    env_file:
+      - ../.env.prod
+    working_dir: /nextjs
+    command: sh -c "node server.js"
+    depends_on:
+      - postgres
+
+  imgproxy:
+    image: ghcr.io/imgproxy/imgproxy:v3.27
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./images:/images
+    environment:
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/images
+      - IMGPROXY_ALLOWED_SOURCES=local://
+      - IMGPROXY_BIND=:3002
+      - IMGPROXY_AUTO_WEBP=true
+      - IMGPROXY_ENFORCE_WEBP=true
+      - IMGPROXY_AUTO_AVIF=true
+      - IMGPROXY_ENFORCE_AVIF=true
+      # - IMGPROXY_WATERMARK_PATH=/images/watermark.png
+      # - IMGPROXY_FALLBACK_IMAGE_PATH=/images/noimage.png
+
+  postgres:
+    image: postgres:17.4-alpine
+    ports:
+      - "3003:3003"
+    volumes:
+      - "./pgdata_prod:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_DB=${PG_DATABASE}
+      - POSTGRES_USER=${PG_USERNAME}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - PGPORT=${PG_PORT}
+    command: >
+      postgres
+      -c logging_collector=on
+      -c log_min_duration_statement=1000
