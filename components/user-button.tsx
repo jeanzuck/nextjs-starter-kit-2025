@@ -24,7 +24,7 @@ export default function UserButton() {
         variant="destructive"
         onClick={async () => {
           startTransition(async () => {
-            await new Promise((resolve) => setTimeout(resolve, 2000))
+            // await new Promise((resolve) => setTimeout(resolve, 2000))
             await authClient.signOut()
             router.push("/")
           })

@@ -39,7 +39,7 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<"div">)
 
   async function onSubmit(input: T_SignUpForm) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // await new Promise((resolve) => setTimeout(resolve, 2000))
       await authClient.signUp.email(
         {
           email: input.email,
