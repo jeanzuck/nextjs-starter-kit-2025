@@ -37,4 +37,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+/docker/cache
+/docker/pgdata_dev
+/docker/pgdata_prod
+
 # End of https://www.toptal.com/developers/gitignore/api/nextjs
