@@ -21,7 +21,11 @@ export default async function Home() {
             >
               <ImageOptimize
                 fetchSrc={`/${logo.logoImage}`}
-                fetchWidth={320}
+                fetchWidth={640}
+                srcSet={{
+                  minWidth: 160,
+                  maxWidth: 640
+                }}
                 alt={`${logo.name} logo`}
                 className="h-full w-full object-contain transition-transform duration-200 group-hover:scale-110"
               />
