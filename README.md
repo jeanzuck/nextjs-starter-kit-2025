@@ -32,7 +32,7 @@ No overkill, just the stuff that works.
 
 ## ⚠️ You Need to Know
 
-- This project uses **imgproxy + Next.js ImageOptimize** instead of the default Next.js Image component for optimized image delivery.
+- This project uses **imgproxy + New ImageOptimize Component** instead of the default Next.js Image component for optimized image delivery.
 - The database uses **Drizzle ORM** with **PostgreSQL** for performance and type safety.
 - The schema is designed using a **codebase-first approach** with Drizzle, making it easier to maintain and refactor.
 - Authentication is handled by **better-auth** for simplicity and security.

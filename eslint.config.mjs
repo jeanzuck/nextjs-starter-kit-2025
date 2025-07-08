@@ -28,6 +28,7 @@ const eslintConfig = [
         }
       ],
       "react/react-in-jsx-scope": "off",
+      "react/jsx-curly-brace-presence": ["warn", { props: "never", children: "never", propElementValues: "always" }],
       "@typescript-eslint/no-unused-vars": "warn",
       "jsx-a11y/alt-text": "warn",
       "jsx-a11y/aria-props": "warn",
